@@ -1,5 +1,3 @@
-/* eslint-disable prettier/prettier */
-
 <template>
   <nav>
     <div class="nav-wrapper">
