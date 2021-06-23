@@ -28,9 +28,7 @@
         <input type="text" id="street" class="input-field" v-model.trim="street"/>
       </div>
       </div>
-     <div>
-         <p> Współrzędne: {{}}</p>
-      </div>
+         
       <div>
          <label for="description">Opis</label>
         <input type="text" id="description" class="input-field" v-model.trim="description"/>
@@ -56,22 +54,21 @@
     </div>    
     
     
-        <img v-bind:alt="'photo of '+ place.name" v-bind:src="place.photoMain" style="height:200px;"/>
-        <h2>{{place.name}}</h2>
+        <img v-bind:alt="'photo of '+ place.name" v-bind:src="place.photoMain" style="height:180px;"/>
+        <h3>{{place.name}}</h3>
             <p><strong>Opis: </strong>{{place.description}}</p>
-            <p><strong>Miejscowość: </strong>{{place.city}}</p>
-             <p><strong>Ulica: </strong>{{place.street}}</p>
+            <p><strong>Adres: </strong> ul. {{place.street}} {{place.city}}</p>
             <p><strong>Współrzędne: </strong>{{geoposition}}</p>
             <p v-if="place.costToVisit"><strong>Koszt: </strong>{{place.costToVisit}} zł</p>
             <p v-else>Za darmo!</p>
             <p ><strong>Czas zwiedzania: </strong>{{place.timeToVisit}} minut</p>
             <p>Średnia ocen: {{average}}</p>
-            <button @click ="revealPhotos()" class="waves-effect waves-light btn" ><i class="material-icons left">photo_camera</i>Galeria ({{photos.length}})</button>
+            <div id="menu"></div>
+            <a href="#menu"><button @click ="revealPhotos()" class="waves-effect waves-light btn" ><i class="material-icons left">photo_camera</i>Galeria ({{photos.length}})</button>
             <button @click ="revealMap()"  class="waves-effect waves-light btn" ><i class="material-icons left">place</i>Pokaż na mapie {{}}</button>
             <button @click ="revealWeather()"  class="waves-effect waves-light btn" ><i class="material-icons left">wb_sunny</i>Pogoda</button>           
-            <button @click ="revealComments()"  class="waves-effect waves-light btn"><i class="material-icons left">rate_review</i>Opinie ({{comments.length}})</button>
-            
-                    <div v-if="place.showWeather">
+            <button @click ="revealComments()"  class="waves-effect waves-light btn"><i class="material-icons left">rate_review</i>Opinie ({{comments.length}})</button></a>
+              <div v-if="place.showWeather">
                       <table class="responsive-table" >
                         <thead >
                           <tr>
@@ -125,6 +122,7 @@
         </div>
     </div>
     <div v-else>Nie znaleziono miejsca o takim indeksie.</div>
+    <br/>
 </template>
 <script>
 import CommentList from "@/components/CommentList.vue";
@@ -132,6 +130,7 @@ import CommentForm from "@/components/CommentForm.vue";
 import Photos from "@/components/Photos.vue";
 import Map from "@/components/Map.vue";
 import placeService from "@/services/placeService.js";
+import googleService from "@/services/googleService.js";
 import axios from 'axios'
 export default {
   name: "Place",
@@ -160,13 +159,15 @@ export default {
       description: "",
       costToVisit: 0,
       timeToVisit: 0,
-      photoMain: ""
+      photoMain: "",
+      lon: null,
+      lat: null
     };
   },
   created() {
     this.getPlaceById(this.placeId);
     this.getCommentsForPlace(this.placeId);
-    this.getPhotosForPlace(this.placeId)
+    this.getPhotosForPlace(this.placeId);
   },
   methods: {
     updateAverage(a){
@@ -196,7 +197,6 @@ export default {
       this.photos = await placeService.getPhotosForPlace(id);
     },
     editPlace(){
-      console.log(this.place.showEditForm)
       this.place.showEditForm = !this.place.showEditForm;
       this.name = this.place.name
       this.city = this.place.city
@@ -205,6 +205,14 @@ export default {
       this.costToVisit = this.place.costToVisit
       this.timeToVisit = this.place.timeToVisit
       this.photoMain = this.place.photoMain
+     
+    },
+    async getGeoposition() {
+      let address = this.street.replaceAll(' ','+')+'+'+this.city.replaceAll(' ','+')+'&countrycodes=pl'
+      const result = await googleService.getGeoposition(address)
+      console.log(result)
+     return {lat: result[0],
+            lon: result[1]}
     },
     async updatePlace(id) {
        if (!this.name || !this.city || !this.street || !this.description || this.costToVisit<0 || this.timeToVisit<0 || !this.photoMain) {
@@ -212,6 +220,10 @@ export default {
       } 
       else
        {
+        let address = this.city+' '+this.street+' Polska'
+        console.log(address)
+       // const coordinates = await googleService.getGeoposition(address)
+        //console.log('mam',coordinates);
         const params = {
             name: this.name,
             city: this.city,
@@ -219,8 +231,12 @@ export default {
             description: this.description,
             costToVisit: this.costToVisit,
             timeToVisit: this.timeToVisit,
-            photoMain: this.photoMain
+            photoMain: this.photoMain,
+            //latitude: coordinates.latitude,
+            //longitude: coordinates.longitude
+
         }
+        //console.log('update',params.latitude, params.longitude)
         await placeService.updatePlaceById(id,params)
         this.showEditForm = false
         this.getPlaceById(id);
@@ -256,7 +272,7 @@ export default {
   },
   computed: {
     geoposition() {
-      return this.place.longitude + ", " + this.place.latitude;
+      return this.place.latitude + ", " + this.place.longitude;
     },
   },
 };
