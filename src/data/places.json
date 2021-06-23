@@ -1,0 +1,49 @@
+[{
+        "id": "001",
+        "name": "Zamek Królewski w Warszawie",
+        "city": "Warszawa",
+        "photo": "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.mm.bing.net%2Fth%3Fid%3DOIP.lBmk_8fsyQsS7d7rBZkKcgHaET%26pid%3DApi&f=1",
+        "description": "Zamek Królewski w Warszawie – barokowo-klasycystyczny zamek królewski znajdujący się w Warszawie przy placu Zamkowym 4.",
+        "costToVisit": 30,
+        "longitude": 52.247778,
+        "latitude": 21.01416,
+
+        "comments": [{
+                "id": "101",
+                "title": "Super!",
+                "nick": "Jacek",
+                "content": "Super było, jeszcze tu wrócę.",
+                "rate": 5
+            },
+            {
+                "id": "102",
+                "title": "Taki sobie",
+                "nick": "Staś",
+                "content": "Trochę nudno, tłum ludzi, ale ładne żyrandole",
+                "rate": 4
+            },
+            {
+                "id": "103",
+                "title": "Nuda",
+                "nick": "Ania",
+                "content": "Duszno, tłoczno, poza tym to atrapa, a nie stary zamek. Nie polecam.",
+                "rate": 3
+            }
+        ]
+    },
+    {
+        "id": "002",
+        "name": "Łazienki Królewskie w Warszawie",
+        "city": "Warszawa",
+        "photo": "https://duckduckgo.com/i/2b942462.jpg",
+        "description": "Łazienki Królewskie – zespół pałacowo-ogrodowy w Warszawie założony w XVIII wieku przez Stanisława Augusta Poniatowskiego. Nazwa pochodzi od barokowego pawilonu Łaźni, wzniesionego w latach 80. XVII wieku przez Stanisława Herakliusza Lubomirskiego i przebudowanego przez Stanisława Augusta Poniatowskiego na pałac Na Wyspie.",
+        "costToVisit": 0,
+        "longitude": 52.214444,
+        "latitude": 21.031667,
+        "showWeather": false,
+        "showComments": false,
+        "comments": [
+
+        ]
+    }
+]
