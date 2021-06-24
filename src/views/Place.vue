@@ -211,26 +211,26 @@ export default {
     },
     
     revealWeather() {
-      this.place.showWeather = true
+      this.place.showWeather = !this.place.showWeather
       this.place.showComments = false
       this.place.showPhotos = false
       this.place.showMap = false;
      
     },
      revealPhotos() {
-      this.place.showPhotos = true
+      this.place.showPhotos = !this.place.showPhotos
       this.place.showWeather = false;
       this.place.showComments = false
       this.place.showMap = false;
     },
     revealMap() {
-      this.place.showMap = true
+      this.place.showMap = !this.place.showMap
       this.place.showWeather = false;
       this.place.showComments = false;
       this.place.showPhotos = false;
     },
     revealComments() {
-      this.place.showComments = true
+      this.place.showComments = !this.place.showComments
       this.place.showWeather = false;
       this.place.showMap = false;
       this.place.showPhotos = false;
