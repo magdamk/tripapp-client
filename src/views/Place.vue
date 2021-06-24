@@ -20,7 +20,7 @@
       </div>
       <div class="row">
       <div >
-         <label for="city">Miejscowość</label>
+         <label for="city">Miejscowość, województwo</label>
         <input type="text" id="city" class="input-field" v-model.trim="city"/>
       </div>
       <div>
@@ -31,7 +31,7 @@
          
       <div>
          <label for="description">Opis</label>
-        <input type="text" id="description" class="input-field" v-model.trim="description"/>
+        <textarea rows="5" id="description" class="input-field" v-model.trim="description"></textarea>
       </div>
       <div class="row">
       <div>
@@ -62,51 +62,18 @@
             <p v-if="place.costToVisit"><strong>Koszt: </strong>{{place.costToVisit}} zł</p>
             <p v-else>Za darmo!</p>
             <p ><strong>Czas zwiedzania: </strong>{{place.timeToVisit}} minut</p>
-            <p>Średnia ocen: {{average}}</p>
+            <p v-if="place.average>0">Średnia ocen: {{place.average}}</p>
+            <p v-else>Brak opinii</p>
+            
             <div id="menu"></div>
             <a href="#menu"><button @click ="revealPhotos()" class="waves-effect waves-light btn" ><i class="material-icons left">photo_camera</i>Galeria ({{photos.length}})</button>
             <button @click ="revealMap()"  class="waves-effect waves-light btn" ><i class="material-icons left">place</i>Pokaż na mapie {{}}</button>
             <button @click ="revealWeather()"  class="waves-effect waves-light btn" ><i class="material-icons left">wb_sunny</i>Pogoda</button>           
             <button @click ="revealComments()"  class="waves-effect waves-light btn"><i class="material-icons left">rate_review</i>Opinie ({{comments.length}})</button></a>
-              <div v-if="place.showWeather">
-                      <table class="responsive-table" >
-                        <thead >
-                          <tr>
-                            <td></td>
-                            <td><h5>Teraz</h5></td>
-                            <td><h5>Jutro</h5></td>
-                            <td><h5>Pojutrze</h5></td>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <tr>
-                            <td>Temperatura:</td>
-                            <td>{{(weather.data.current.temp-273).toFixed(2)}}&deg;C</td>
-                            <td>{{(weather.data.daily[0].temp.day-273).toFixed(2)}}&deg;C</td>
-                            <td>{{(weather.data.daily[1].temp.day-273).toFixed(2)}}&deg;C</td>
-                          </tr>
-                          <tr>
-                            <td>Opis: </td>
-                            <td>{{weather.data.current.weather[0].description}}</td>
-                            <td>{{weather.data.daily[0].weather[0].description}}</td>
-                            <td>{{weather.data.daily[1].weather[0].description}}</td>
-                          </tr>
-                          <tr>
-                            <td>Wiatr: </td>
-                            <td>{{weather.data.current.wind_speed}} km/h</td>
-                            <td>{{weather.data.daily[0].wind_speed}} km/h</td>
-                            <td>{{weather.data.daily[1].wind_speed}} km/h</td>
-                          </tr>
-                          <tr>
-                            <td>Ciśnienie: </td>
-                            <td>{{weather.data.current.pressure}} hPa</td>
-                            <td>{{weather.data.daily[0].pressure}} hPa</td>
-                            <td>{{weather.data.daily[1].pressure}} hPa</td>
-                          </tr>
-                        </tbody>
-                      </table>
-                        <p style="font-size:10px">Pogoda pochodzi z serwisu <a href="https://openweathermap.org/">https://openweathermap.org/</a></p>
-                    </div>   
+            
+            <div v-if="place.showWeather">
+              <Weather :weather="weather"/>
+            </div>   
             
             <div v-show="place.showPhotos">
               <Photos :photos="photos" v-bind:placeId="place._id" @photo-list-changed="photoListChanged"/>
@@ -118,7 +85,7 @@
         
         <div v-show="place.showComments">
             <CommentForm :id="placeId" @comment-list-changed="commentListChange"/>
-            <CommentList :comments="comments" @comment-list-change="commentListChange" @update-average="updateAverage"/>
+            <CommentList :comments="comments" :average="place.average" @comment-list-change="commentListChange" />
         </div>
     </div>
     <div v-else>Nie znaleziono miejsca o takim indeksie.</div>
@@ -129,9 +96,9 @@ import CommentList from "@/components/CommentList.vue";
 import CommentForm from "@/components/CommentForm.vue";
 import Photos from "@/components/Photos.vue";
 import Map from "@/components/Map.vue";
+import Weather from "@/components/Weather.vue"
 import placeService from "@/services/placeService.js";
-import googleService from "@/services/googleService.js";
-import axios from 'axios'
+import geoService from "@/services/geoService.js";
 export default {
   name: "Place",
   props: {
@@ -140,7 +107,7 @@ export default {
       required: true
     },
   },
-  components: { CommentList, CommentForm, Photos, Map },
+  components: { CommentList, CommentForm, Photos, Map, Weather },
   data() {
     return {
       place: null,
@@ -168,14 +135,13 @@ export default {
     this.getPlaceById(this.placeId);
     this.getCommentsForPlace(this.placeId);
     this.getPhotosForPlace(this.placeId);
+    this.getWeatherForPlace(this.placeId)
+    
   },
   methods: {
-    updateAverage(a){
-     // console.log(a);
-      this.average=a;
-      return this.average
-    },
+    
     commentListChange(){
+      this.getPlaceById(this.placeId);
       this.getCommentsForPlace(this.placeId);
        this.$forceUpdate()
     },
@@ -194,7 +160,9 @@ export default {
       }
     },
      async getPhotosForPlace(id){
+      if (id) {
       this.photos = await placeService.getPhotosForPlace(id);
+      }
     },
     editPlace(){
       this.place.showEditForm = !this.place.showEditForm;
@@ -209,7 +177,7 @@ export default {
     },
     async getGeoposition() {
       let address = this.street.replaceAll(' ','+')+'+'+this.city.replaceAll(' ','+')+'&countrycodes=pl'
-      const result = await googleService.getGeoposition(address)
+      const result = await geoService.getGeoposition(address)
       console.log(result)
      return {lat: result[0],
             lon: result[1]}
@@ -220,10 +188,10 @@ export default {
       } 
       else
        {
-        let address = this.city+' '+this.street+' Polska'
+        let address = this.city+" "+this.street+" "+this.name
         console.log(address)
-       // const coordinates = await googleService.getGeoposition(address)
-        //console.log('mam',coordinates);
+        const coordinates = await geoService.getGeoposition(address)
+        console.log('mam',coordinates);
         const params = {
             name: this.name,
             city: this.city,
@@ -232,39 +200,40 @@ export default {
             costToVisit: this.costToVisit,
             timeToVisit: this.timeToVisit,
             photoMain: this.photoMain,
-            //latitude: coordinates.latitude,
-            //longitude: coordinates.longitude
+            latitude: coordinates.lat,
+            longitude: coordinates.lng
 
         }
-        //console.log('update',params.latitude, params.longitude)
         await placeService.updatePlaceById(id,params)
         this.showEditForm = false
         this.getPlaceById(id);
         this.$forceUpdate()
        }
     },
-    async revealWeather() {
-      this.place.showWeather = !this.place.showWeather;
+    async getWeatherForPlace(id){
+     if (id) {this.weather = await geoService.getWeather(id);console.log(this.weather)}
+    },
+    revealWeather() {
+      this.place.showWeather = true
       this.place.showComments = false
       this.place.showPhotos = false
       this.place.showMap = false;
-      let url = "http://api.openweathermap.org/data/2.5/onecall?lat=" + this.place.latitude+"&lon="+this.place.longitude+ "&appid=ce133af21bc2f8dd391c25474fae2b43&lang=pl";
-      this.weather = await axios(url)
+     
     },
      revealPhotos() {
-      this.place.showPhotos = !this.place.showPhotos;
+      this.place.showPhotos = true
       this.place.showWeather = false;
       this.place.showComments = false
       this.place.showMap = false;
     },
     revealMap() {
-      this.place.showMap = !this.place.showMap;
+      this.place.showMap = true
       this.place.showWeather = false;
       this.place.showComments = false;
       this.place.showPhotos = false;
     },
     revealComments() {
-      this.place.showComments = !this.place.showComments;
+      this.place.showComments = true
       this.place.showWeather = false;
       this.place.showMap = false;
       this.place.showPhotos = false;

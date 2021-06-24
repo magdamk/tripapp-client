@@ -57,7 +57,7 @@
             <tbody>
                 <tr v-for="(place,index) in places" v-bind:key="place._id" v-show="place.average >= av">
                     <td><img v-bind:alt="'photo of '+ place.name" v-bind:src="place.photoMain" style="height:100px;"/></td>
-                    <td  >{{place.name}}</td>
+                    <td>{{place.city}}: {{place.name}} </td>
                     <td>
                         <button @click="goToPlace(place._id)" class="waves-effect waves-light btn-small">Pokaż<i class="material-icons right">pageview</i></button>
                     </td>

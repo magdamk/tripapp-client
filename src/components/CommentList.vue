@@ -22,6 +22,10 @@ export default {
   name: "CommentList",
   components: { Comment },
   props: {
+    average:{
+      type: Number,
+      required: true
+    },
     comments: {
       type: Array,
     },
@@ -32,7 +36,9 @@ export default {
     commentListChange(){
       this.$emit('comment-list-change');
     }
-  },
+  }
+  /*
+  ,
   computed: {
     average() {
       let sum = 0;
@@ -49,7 +55,7 @@ export default {
       } else {this.$emit('update-average','brak')
         return "Brak opinii";}
     },
-  },
+  },*/
 };
 </script>
 <style scoped>
