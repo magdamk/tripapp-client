@@ -22,7 +22,7 @@ const routes = [{
         // this generates a separate chunk (about.[hash].js) for this route
         // which is lazy-loaded when the route is visited.
         component: () =>
-            import ( /* webpackChunkName: "about" */ "@/views/Places.vue"),
+            import ( /* webpackChunkName: "places" */ "@/views/Places.vue"),
     },
     {
         path: "/places/:placeId",
@@ -32,7 +32,7 @@ const routes = [{
         // this generates a separate chunk (about.[hash].js) for this route
         // which is lazy-loaded when the route is visited.
         component: () =>
-            import ( /* webpackChunkName: "about" */ "@/views/Place.vue"),
+            import ( /* webpackChunkName: "place" */ "@/views/Place.vue"),
     },
     {
         path: "/login/",
@@ -41,13 +41,19 @@ const routes = [{
         // this generates a separate chunk (about.[hash].js) for this route
         // which is lazy-loaded when the route is visited.
         component: () =>
-            import ( /* webpackChunkName: "about" */ "@/views/Login.vue"),
+            import ( /* webpackChunkName: "login" */ "@/views/Login.vue"),
+    },
+    {
+        path: "/addPlace/",
+        name: "AddPlace",
+        component: () =>
+            import ( /* webpackChunkName: "addplace" */ "@/views/AddPlace.vue")
     },
     {
         path: "/:catchAll(.*)",
         name: "NotFound",
         component: () =>
-            import ( /* webpackChunkName: "about" */ "@/views/NotFound.vue"),
+            import ( /* webpackChunkName: "notfound" */ "@/views/NotFound.vue"),
     },
 ];
 

@@ -4,12 +4,12 @@
         <p>{{message}}</p>
         <div v-if="username" >
             <h4>Witaj {{username.split("@")[0]}}</h4>
-            <form  @submit.prevent="onLogout">
+            <form  @submit.prevent="onLogout" >
             <button class="btn waves-effect waves-light" type="submit" @submit="onLogout">Wyloguj<i class="material-icons right">send</i></button>
             </form>
         </div>
         <div v-else>
-        <form @submit.prevent="onSubmit" style="max-width:300px;margin-left:20px;">
+        <form @submit.prevent="onSubmit" style="margin:auto;width:50%;padding: 10px;" >
             <h5>Zaloguj się</h5>
           <div class="col s4">
             <div class="input-field-inline">

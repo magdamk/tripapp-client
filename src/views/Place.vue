@@ -16,7 +16,7 @@
       <div>
         <label for="photoMain">Zdjęcie główne</label>
         <input type="text" id="photoMain" class="input-field" v-model.trim="photoMain" />
-        <img :src="photoMain"  style="height:50px;">
+        <img :src="photoMain"  style="height:50px; width:80px;border:2px solid black; padding: 2px">
       </div>
       <div class="row">
       <div >
@@ -53,7 +53,6 @@
         <br/>
     </div>    
     
-    
         <img v-bind:alt="'photo of '+ place.name" v-bind:src="place.photoMain" style="height:180px;"/>
         <h3>{{place.name}}</h3>
             <p><strong>Opis: </strong>{{place.description}}</p>
@@ -71,10 +70,6 @@
             <button @click ="revealWeather()"  class="waves-effect waves-light btn" ><i class="material-icons left">wb_sunny</i>Pogoda</button>           
             <button @click ="revealComments()"  class="waves-effect waves-light btn"><i class="material-icons left">rate_review</i>Opinie ({{comments.length}})</button></a>
             
-            <div v-if="place.showWeather">
-              <Weather :weather="weather"/>
-            </div>   
-            
             <div v-show="place.showPhotos">
               <Photos :photos="photos" v-bind:placeId="place._id" @photo-list-changed="photoListChanged"/>
             </div>
@@ -82,11 +77,15 @@
             <div v-show="place.showMap">
               <Map :latitude="place.latitude" :longitude="place.longitude"/>
             </div>
-        
-        <div v-show="place.showComments">
-            <CommentForm :id="placeId" @comment-list-changed="commentListChange"/>
-            <CommentList :comments="comments" :average="place.average" @comment-list-change="commentListChange" />
-        </div>
+            
+            <div v-if="place.showWeather">
+              <Weather :weather="weather"/>
+            </div>   
+            
+            <div v-show="place.showComments">
+              <CommentForm :id="placeId" @comment-list-changed="commentListChange"/>
+              <CommentList :comments="comments" :average="place.average" @comment-list-change="commentListChange" />
+            </div>
     </div>
     <div v-else>Nie znaleziono miejsca o takim indeksie.</div>
     <br/>
@@ -164,6 +163,9 @@ export default {
       this.photos = await placeService.getPhotosForPlace(id);
       }
     },
+    async getWeatherForPlace(id){
+     if (id) {this.weather = await geoService.getWeather(id);console.log(this.weather)}
+    },
     editPlace(){
       this.place.showEditForm = !this.place.showEditForm;
       this.name = this.place.name
@@ -178,7 +180,6 @@ export default {
     async getGeoposition() {
       let address = this.street.replaceAll(' ','+')+'+'+this.city.replaceAll(' ','+')+'&countrycodes=pl'
       const result = await geoService.getGeoposition(address)
-      console.log(result)
      return {lat: result[0],
             lon: result[1]}
     },
@@ -189,9 +190,7 @@ export default {
       else
        {
         let address = this.city+" "+this.street+" "+this.name
-        console.log(address)
         const coordinates = await geoService.getGeoposition(address)
-        console.log('mam',coordinates);
         const params = {
             name: this.name,
             city: this.city,
@@ -210,9 +209,7 @@ export default {
         this.$forceUpdate()
        }
     },
-    async getWeatherForPlace(id){
-     if (id) {this.weather = await geoService.getWeather(id);console.log(this.weather)}
-    },
+    
     revealWeather() {
       this.place.showWeather = true
       this.place.showComments = false

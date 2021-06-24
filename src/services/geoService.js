@@ -6,7 +6,7 @@ export class GeoService {
         //  const apiKey = "AIzaSyBQ2KLXauaMH-3Py0Yf3_L-XlRxN0WfIDM"
         //const url = "https://maps.googleapis.com/maps/api/geocode/json?address="
 
-        console.log('jestem', address)
+        console.log('geolocated', address)
             //const url = 'http://api.positionstack.com/v1/forward?access_key=' + '6372f969ddb26abe863c91f5e869b6f1' + '&query=' + address + '&region=Polska&output=json'
             // const url = "http://nominatim.openstreetmap.org/search?q=" + address + "&format=geojson"
         const url = "http://www.mapquestapi.com/geocoding/v1/address?key=" + "irYY0VXhVRyhGNbijDkS8JhedXNzUfMk" + "&location=" + address + "&countrycodes=PL"

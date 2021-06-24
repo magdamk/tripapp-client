@@ -31,31 +31,13 @@ export default {
     },
   },
   
-  emits:['update-average','comment-list-change'],
+  emits:['comment-list-change'],
   methods:{
     commentListChange(){
       this.$emit('comment-list-change');
     }
   }
-  /*
-  ,
-  computed: {
-    average() {
-      let sum = 0;
-      let i = 0;
-      if (this.comments.length) {
-        let arr = this.comments;
-        while (i < arr.length) {
-          sum += arr[i].rate;
-          i++;
-        }
-        const a = (sum / this.comments.length).toFixed(0)
-         this.$emit('update-average',a)
-        return a;
-      } else {this.$emit('update-average','brak')
-        return "Brak opinii";}
-    },
-  },*/
+ 
 };
 </script>
 <style scoped>

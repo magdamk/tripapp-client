@@ -3,7 +3,6 @@ import axios from 'axios'
 export class PlaceService {
     async getAllPlaces(query) {
         const places = await axios.get("/api/places/" + query)
-        console.log(places.data)
         return places.data;
     }
     async getPlaceById(id) {
@@ -13,6 +12,10 @@ export class PlaceService {
     async updatePlaceById(id, params) {
         const updatedPlace = axios.patch("/api/places/" + id, params).then(result => result.data)
         return updatedPlace
+    }
+    async createPlace(params) {
+        const createdPlace = axios.post("/api/places/", params).then(result => result.data)
+        return createdPlace
     }
     async getCommentsForPlace(id) {
         const commentsForPlace = await axios.get("/api/comments/" + id)
@@ -36,7 +39,6 @@ export class PlaceService {
     }
     async deletePhoto(id) {
         const deletedPhoto = axios.delete('/api/photos/' + id).then(result => result.data)
-        console.log(deletedPhoto)
         return deletedPhoto
     }
 }
