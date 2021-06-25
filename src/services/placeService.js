@@ -2,44 +2,64 @@ import axios from 'axios'
 //import places from "../data/places.json";
 export class PlaceService {
     async getAllPlaces(query) {
-        const places = await axios.get("/api/places/" + query)
-        return places.data;
+        try {
+            const places = await axios.get("/api/places/" + query)
+            return places.data;
+        } catch (err) { return err.message }
     }
     async getPlaceById(id) {
-        const place = await axios.get("/api/places/" + id)
-        return place.data || null;
+        try {
+            const place = await axios.get("/api/places/" + id)
+            return place.data || null;
+        } catch (err) { return err.message }
     }
     async updatePlaceById(id, params) {
-        const updatedPlace = axios.patch("/api/places/" + id, params).then(result => result.data)
-        return updatedPlace
+        try {
+            const updatedPlace = axios.patch("/api/places/" + id, params).then(result => result.data)
+            return updatedPlace
+        } catch (err) { return err.message }
     }
     async createPlace(params) {
-        const createdPlace = axios.post("/api/places/", params).then(result => result.data)
-        return createdPlace
+        try {
+            const createdPlace = axios.post("/api/places/", params).then(result => result.data)
+            return createdPlace
+        } catch (err) { return err.message }
     }
     async getCommentsForPlace(id) {
-        const commentsForPlace = await axios.get("/api/comments/" + id)
-        return commentsForPlace.data
+        try {
+            const commentsForPlace = await axios.get("/api/comments/" + id)
+            return commentsForPlace.data
+        } catch (err) { return err.message }
     }
     async createCommentforPlace(id, params) {
-        const addedComment = axios.post("/api/comments/" + id, params)
-        return addedComment
+        try {
+            const addedComment = axios.post("/api/comments/" + id, params)
+            return addedComment
+        } catch (err) { return err.message }
     }
     async deleteComment(id) {
-        const deletedComment = axios.delete("/api/comments/" + id)
-        return deletedComment
+        try {
+            const deletedComment = axios.delete("/api/comments/" + id)
+            return deletedComment
+        } catch (err) { return err.message }
     }
     async getPhotosForPlace(id) {
-        const photosForPlace = await axios.get("/api/photos/" + id)
-        return photosForPlace.data
+        try {
+            const photosForPlace = await axios.get("/api/photos/" + id).then(result => result.data)
+            return photosForPlace
+        } catch (err) { return err.message }
     }
     async addPhotoForPlace(id, params) {
-        const addedPhoto = axios.post("/api/photos/" + id, params).then(result => result.data)
-        return addedPhoto
+        try {
+            const addedPhoto = axios.post("/api/photos/" + id, params).then(result => result.data)
+            return addedPhoto
+        } catch (err) { return err.message }
     }
     async deletePhoto(id) {
-        const deletedPhoto = axios.delete('/api/photos/' + id).then(result => result.data)
-        return deletedPhoto
+        try {
+            const deletedPhoto = axios.delete('/api/photos/' + id).then(result => result.data)
+            return deletedPhoto
+        } catch (err) { return err.message }
     }
 }
 

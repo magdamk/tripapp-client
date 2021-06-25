@@ -49,16 +49,20 @@ export default {
       if (!this.url) {alert ('Podaj url zdjęcia')}
         else {
           const params = {
-          url: this.url,
+          url: this.url
           }
-      await placeService.addPhotoForPlace(id,params).then(result => result.data)
+      try {    
+      await placeService.addPhotoForPlace(id,params)
+      } catch (err) {console.log(err.message)}
       this.$emit('photo-list-changed')
       this.url = null
         }
     },
     async deletePhoto(id) {
       if (id) {
+        try {
         await placeService.deletePhoto(id)
+        } catch (err) {return err.message}
         this.$emit('photo-list-changed')
       }
     }      

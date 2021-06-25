@@ -94,7 +94,6 @@ export default {
     methods:{
         async getPlaceById(id) {
             if (id) {
-                console.log(id)
             this.place = await placeService.getPlaceById(id);
             this.name = this.place.name
             this.city = this.place.city
@@ -114,7 +113,6 @@ export default {
             {
                 let address = this.city+" "+this.street+" "+this.name
                 const coordinates = await geoService.getGeoposition(address)
-                console.log('got ',coordinates)
                 const params = {
                     name: this.name,
                     city: this.city,
@@ -134,7 +132,7 @@ export default {
                     }
                 else {
                     this.message = 'Wystąpił błąd'
-                this.color = 'red'}
+                    this.color = 'red'}
                 
             }
         },

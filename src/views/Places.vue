@@ -34,8 +34,8 @@
         <input type="number" id="costToVisit" class="input-field" v-model.number="costToVisit" @keyup="onSubmit" min="0"/>
       </div>
        <div class="input-field inline">
-         <label for="av">Minimalna ocena</label>
-        <input type="number" id="av" class="input-field" v-model.number="av" @keyup="showByRate" min="0" max="5"/>
+         <label for="average">Minimalna ocena</label>
+        <input type="number" id="average" class="input-field" v-model.number="average" @keyup="onSubmit" min="0" max="5"/>
       </div>
       
          <div>
@@ -116,8 +116,9 @@ export default {
         "&description=" +
         this.description +
         "&costToVisit=" +
-        this.costToVisit;
-      console.log(query);
+        this.costToVisit +
+        "&average=" + 
+        this.average;
       this.places = await placeService.getAllPlaces(query);
     },
     showByRate() {

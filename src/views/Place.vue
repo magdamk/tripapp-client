@@ -1,6 +1,6 @@
 <template lang="pl">
   <br/>
-    <div v-if="place">
+    <div v-if="place" style="margin:20px">
     <div v-if="$store.state.user">
         <button v-if="!place.showEditForm" @click="editPlace2(place._id)" class="waves-effect waves-light btn" style="float:right;margin-right:20px">
             <i class="material-icons right">edit</i>Edytuj</button><div style="clear:both"></div>

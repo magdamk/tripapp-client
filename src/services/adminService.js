@@ -2,9 +2,11 @@ import axios from 'axios'
 //import places from "../data/places.json";
 export class AdminService {
     async getLogin() {
-        const user = await axios.get("/api/admin/")
-            //  console.log('get', user.data)
-        return user.data;
+        try {
+            const user = await axios.get("/api/admin/")
+                //  console.log('get', user.data)
+            return user.data;
+        } catch (err) { return err.message }
     }
     async postLogin(params) {
         try {
@@ -16,8 +18,10 @@ export class AdminService {
         }
     }
     async onLogout() {
-        const logout = await axios.get("/api/logout/")
-        return logout.data.message
+        try {
+            const logout = await axios.get("/api/logout/")
+            return logout.data.message
+        } catch (err) { return err.message }
     }
 }
 
