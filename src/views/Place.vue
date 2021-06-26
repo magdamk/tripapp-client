@@ -1,14 +1,12 @@
 <template lang="pl">
-  <br/>
   <div style="margin:20px">
   <button class="btn waves-effect waves-light" style="float:left;" @click="goBackToPlaces" >powrót<i class="material-icons left">arrow_back</i></button>
   <div v-if="place" >
     <div v-if="$store.state.user">
       <button v-if="!place.showEditForm" @click="editPlace2(place._id)" class="waves-effect waves-light btn" style="float:right;">
-        <i class="material-icons right">edit</i>Edytuj</button><div style="clear:both"></div>
+        <i class="material-icons right">edit</i>Edytuj</button>
     </div>
-    <br/>
-    
+    <div style="clear:both"> </div>
     <img v-bind:alt="'photo of '+ place.name" v-bind:src="place.photoMain" style="height:180px;"/>
     <h3>{{place.name}}</h3>
     <p><strong>Opis: </strong>{{place.description}}</p>

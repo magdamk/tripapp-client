@@ -1,6 +1,6 @@
 <template lang="pl">
-<br/>
- <button class="btn waves-effect waves-light" style="float:left; margin-left:20px;" @click="goBackToPlace(placeId)" >powrót<i class="material-icons left">arrow_back</i></button><p style="clear:both"></p>
+<div style="margin:20px;">
+ <button class="btn waves-effect waves-light" style="float:left;" @click="goBackToPlace(placeId)" >powrót<i class="material-icons left">arrow_back</i></button><p style="clear:both"></p>
     <div v-if="$store.state.user">
        <div v-if="message">  
        <br/>
@@ -13,7 +13,7 @@
          <p>Wskazówka: w polu "miejscowość" podaj najbliższą miejscowość, 
             natomiast w polu adres warto dodać województwo i/lub powiat, zwiększa to dokładność geokodowania. </p>
         
-        <form @submit.prevent="updatePlace" style="margin-left:20px;margin-right:20px;">
+        <form @submit.prevent="updatePlace" >
       
       <div>
         <label for="name">Nazwa</label>
@@ -57,7 +57,7 @@
     </form>
     </div>
     <br/>
-    <br/>
+    </div>
     </div>
 </template>
 <script>
