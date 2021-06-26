@@ -1,9 +1,11 @@
 <template lang="pl">
   <br/>
-    <div v-if="place" style="margin:20px">
+  <div style="margin:20px">
+  <button class="btn waves-effect waves-light" style="float:left;" @click="goBackToPlaces" >powrót<i class="material-icons left">arrow_back</i></button>
+  <div v-if="place" >
     <div v-if="$store.state.user">
-        <button v-if="!place.showEditForm" @click="editPlace2(place._id)" class="waves-effect waves-light btn" style="float:right;margin-right:20px">
-            <i class="material-icons right">edit</i>Edytuj</button><div style="clear:both"></div>
+      <button v-if="!place.showEditForm" @click="editPlace2(place._id)" class="waves-effect waves-light btn" style="float:right;">
+        <i class="material-icons right">edit</i>Edytuj</button><div style="clear:both"></div>
     </div>
     <br/>
     
@@ -42,7 +44,8 @@
     </div>
     </div>
     <div v-else>Nie znaleziono miejsca o takim indeksie.</div>
-    <br/>
+  </div>
+  <br/>
 </template>
 <script>
 import CommentList from "@/components/CommentList.vue";
@@ -135,6 +138,9 @@ export default {
       this.place.showWeather = false;
       this.place.showMap = false;
       this.place.showPhotos = false;
+    },
+    goBackToPlaces() {
+        this.$router.push("/Places/");
     }
   },
   computed: {

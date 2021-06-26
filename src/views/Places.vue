@@ -3,10 +3,7 @@
     <br/>
     <div v-show="$store.state.user">
        <button v-if="!showAddForm" @click="addPlace()" class="waves-effect waves-light btn" style="float:right;margin-right:20px">
-          <i class="material-icons left">add_circle</i>Dodaj miejsce</button>  
-       <div v-if="showAddForm">
-        <h4 style="crea:both;">Podaj dane miejsca</h4>
-       </div> 
+          <i class="material-icons left">add_circle</i>Dodaj miejsce</button><div style="clear:both;"></div>
     </div>
     <h4>Wyszukaj miejsca</h4>
     <form @submit.prevent="onSubmit">
@@ -43,7 +40,7 @@
           </div>
       </div>
     </form>
-    <p>Znaleziono {{places.length}} miejsc</p>
+    <p>Liczba miejsc: {{places.length}}</p>
         <table>
             <thead>
                 <tr>
@@ -55,7 +52,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr v-for="(place,index) in places" v-bind:key="place._id" v-show="place.average >= av">
+                <tr v-for="(place,index) in places" v-bind:key="place._id" >
                     <td><img v-bind:alt="'photo of '+ place.name" v-bind:src="place.photoMain" style="height:100px;"/></td>
                     <td>{{place.name}} </td>
                     <td>
@@ -88,8 +85,8 @@ export default {
       street: "",
       description: "",
       costToVisit: "",
-      av: "",
-      hide: false,
+      average: "",
+    //  hide: false,
     };
   },
   created() {
@@ -121,13 +118,6 @@ export default {
         this.average;
       this.places = await placeService.getAllPlaces(query);
     },
-    showByRate() {
-      if (this.place.average < this.av) {
-        this.hide = true;
-      } else {
-        this.hide = false;
-      }
-    }
   }
 };
 </script>
