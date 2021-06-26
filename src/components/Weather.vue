@@ -1,6 +1,6 @@
 <template lang="pl">
     <div>
-         <table class="responsive-table" >
+         <table class="table" >
                         <thead >
                           <tr>
                             <td></td>

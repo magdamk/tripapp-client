@@ -1,7 +1,7 @@
 <template lang="pl">
     <div>
     <p><strong>Średnia ocen: </strong><span :class="{'good': average>3, 'bad':average<3, 'neutral':average==3}">{{average}}/5</span></p>
-    <table class="responsive-table">
+    <table class="table">
       <thead>
         <tr>
           <th>Komantarz</th>

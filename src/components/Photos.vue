@@ -16,7 +16,7 @@
     <p v-show="!photos.length">Brak zdjęć</p>
     <div v-for="photo in photos" v-bind:key="photo._id">
         <div class="box">
-        <img v-bind:src="photo.url" />
+        <img class="responsive-img" v-bind:src="photo.url" />
         <button v-if="$store.state.user" @click="deletePhoto(photo._id)" class="guzik btn">USUŃ<i class="material-icons right">delete</i></button>
         </div>
     </div>

@@ -1,6 +1,6 @@
 <template lang="pl">
   <td>
-    <span class="comment">
+    <span>
         <strong>Tytuł: </strong>{{comment.title}}
         <p><strong>Autor: </strong>{{comment.nick}}</p>
         <p><strong>Data wizyty: </strong>{{comment.dateOfVisit.slice(0,10)}}</p>

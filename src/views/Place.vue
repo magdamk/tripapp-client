@@ -1,12 +1,14 @@
 <template lang="pl">
   <div style="margin:20px">
   <button class="btn waves-effect waves-light" style="float:left;" @click="goBackToPlaces" >powrót<i class="material-icons left">arrow_back</i></button>
+ 
   <div v-if="place" >
     <div v-if="$store.state.user">
       <button v-if="!place.showEditForm" @click="editPlace2(place._id)" class="waves-effect waves-light btn" style="float:right;">
         <i class="material-icons right">edit</i>Edytuj</button>
     </div>
     <div style="clear:both"> </div>
+     <div class="hide-on-med-and-up"><br/></div>
     <img v-bind:alt="'photo of '+ place.name" v-bind:src="place.photoMain" style="height:180px;"/>
     <h3>{{place.name}}</h3>
     <p><strong>Opis: </strong>{{place.description}}</p>
@@ -19,9 +21,10 @@
     <p v-else>Brak opinii</p>
     
     <div id="menu"></div>
-    <a href="#menu"><button @click ="revealPhotos()" class="waves-effect waves-light btn" ><i class="material-icons left">photo_camera</i>Galeria ({{photos.length}})</button>
+    <a href="#menu">
     <button @click ="revealMap()"  class="waves-effect waves-light btn" ><i class="material-icons left">place</i>Pokaż na mapie {{}}</button>
-    <button @click ="revealWeather()"  class="waves-effect waves-light btn" ><i class="material-icons left">wb_sunny</i>Pogoda</button>           
+    <button @click ="revealWeather()"  class="waves-effect waves-light btn" ><i class="material-icons left">wb_sunny</i>Pogoda</button> 
+    <button @click ="revealPhotos()" class="waves-effect waves-light btn" ><i class="material-icons left">photo_camera</i>Galeria ({{photos.length}})</button>         
     <button @click ="revealComments()"  class="waves-effect waves-light btn"><i class="material-icons left">rate_review</i>Opinie ({{comments.length}})</button></a>
     
     <div v-show="place.showPhotos">

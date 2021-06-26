@@ -2,7 +2,7 @@
     <div style="margin:20px;">
     <div v-show="$store.state.user">
        <button v-if="!showAddForm" @click="addPlace()" class="waves-effect waves-light btn" style="float:right;">
-          <i class="material-icons left">add_circle</i>Dodaj miejsce</button><div style="clear:both;"></div>
+          <i class="material-icons right">add_circle</i>Dodaj miejsce</button><div style="clear:both;"></div>
     </div>
     <h4>Wyszukaj miejsca</h4>
     <form @submit.prevent="onSubmit">
@@ -45,16 +45,16 @@
                 <tr>
                     <th></th>
                     <th>Miejsce</th>
-                    <th>Akcja</th>
+                    <th class=" hide-on-small-only">Akcja</th>
                     <th>Średnia ocen</th>
                   
                 </tr>
             </thead>
             <tbody>
-                <tr v-for="(place,index) in places" v-bind:key="place._id" >
-                    <td><img v-bind:alt="'photo of '+ place.name" v-bind:src="place.photoMain" style="height:100px;"/></td>
+                <tr v-for="(place,index) in places" v-bind:key="place._id" @click="goToPlace(place._id)" >
+                    <td><img v-bind:alt="'photo of '+ place.name" v-bind:src="place.photoMain" class="responsive-img" style="height:100px;"/></td>
                     <td>{{place.name}} </td>
-                    <td>
+                    <td class="hide-on-small-only">
                         <button @click="goToPlace(place._id)" class="waves-effect waves-light btn-small">Pokaż<i class="material-icons right">pageview</i></button>
                     </td>
                     <td>
