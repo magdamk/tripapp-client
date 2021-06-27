@@ -72,10 +72,10 @@ export default {
       showComments: false,
       showPhotos: false,
       showMap: false,
-      comments: null,
-      weather:null,
+      comments: [],
+      weather:{},
     //  average:null,
-      photos:null,
+      photos:[],
     };
   },
   created() {
