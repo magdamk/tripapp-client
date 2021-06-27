@@ -1,7 +1,7 @@
 <template>
   <nav>
     <div class="nav-wrapper">
-      <a href="/about" class="brand-logo right"><img src="/assets/favicon.jpg" /></a>
+      <a href="/about" class="brand-logo right"><i class="material-icons left">info_outline</i></a>
       <ul id="nav-mobile" class="left">
         <li><router-link :to="{ name: 'Home' }">Home</router-link></li>
         <li>
@@ -10,7 +10,7 @@
         <li><router-link :to="{ name: 'About' }">About</router-link></li>
        
       </ul>
-       <div @click="$router.push('/login')">{{user}}</div>
+       <div style="cursor:pointer" @click="$router.push('/login')">{{user}}</div>
     </div>
   </nav>
   <router-view />

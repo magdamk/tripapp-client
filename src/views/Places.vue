@@ -1,7 +1,7 @@
 <template lang="pl">
     <div style="margin:20px;">
     <div v-show="$store.state.user">
-       <button v-if="!showAddForm" @click="addPlace()" class="waves-effect waves-light btn" style="float:right;">
+       <button @click="addPlace()" class="waves-effect waves-light btn" style="float:right;">
           <i class="material-icons right">add_circle</i>Dodaj miejsce</button><div style="clear:both;"></div>
     </div>
     <h4>Wyszukaj miejsca</h4>

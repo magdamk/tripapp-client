@@ -8,7 +8,7 @@
         <i class="material-icons right">edit</i>Edytuj</button>
     </div>
     <div style="clear:both"> </div>
-     <div class="hide-on-med-and-up"><br/></div>
+    <div class="hide-on-med-and-up"><br/></div>
     <img v-bind:alt="'photo of '+ place.name" v-bind:src="place.photoMain" style="height:180px;"/>
     <h3>{{place.name}}</h3>
     <p><strong>Opis: </strong>{{place.description}}</p>
@@ -74,7 +74,7 @@ export default {
       showMap: false,
       comments: null,
       weather:null,
-      average:null,
+    //  average:null,
       photos:null,
     };
   },
@@ -146,7 +146,7 @@ export default {
        document.getElementById('menu').scrollIntoView();
     },
     goBackToPlaces() {
-        this.$router.push("/Places/");
+        this.$router.push("/places/");
     }
   },
   computed: {

@@ -12,8 +12,8 @@
     <p>Autor: Magdalena Mroziuk</p>
     <a href = "mailto: magdamk@protonmail.com">Email</a>
     <br/>
-    <a href = "https://github.com/magdamk/tripapp-client" target = "_blank">Backend Git Hub repo</a>
+    <a href = "https://github.com/magdamk/tripapp-client" target = "_blank">Frontend Git Hub repo</a>
     <br/>
-    <a href = "https://github.com/magdamk/tripapp" target = "_blank">Frontend Git Hub repo</a>
+    <a href = "https://github.com/magdamk/tripapp" target = "_blank">Backend Git Hub repo</a>
   </div>
 </template>
