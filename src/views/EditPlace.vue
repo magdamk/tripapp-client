@@ -137,7 +137,6 @@ export default {
             }
         },
         goBackToPlace(id) {
-            console.log('go back',id)
             this.$router.push('/places/'+id);
         }
     }

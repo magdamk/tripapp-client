@@ -5,6 +5,7 @@
           <i class="material-icons right">add_circle</i>Dodaj miejsce</button><div style="clear:both;"></div>
     </div>
     <h4>Wyszukaj miejsca</h4>
+    <p>Wielkość liter ma znaczenie</p>
     <form @submit.prevent="onSubmit">
       <div class="row">
       <div class="input-field inline">

@@ -3,61 +3,67 @@ import axios from 'axios'
 export class PlaceService {
     async getAllPlaces(query) {
         try {
-            const places = await axios.get("/api/places/" + query)
+            const places = await axios.get("http://localhost:3000/api/places/" + query)
             return places.data;
         } catch (err) { return err.message }
     }
     async getPlaceById(id) {
         try {
-            const place = await axios.get("/api/places/" + id)
+            const place = await axios.get("http://localhost:3000/api/places/" + id)
             return place.data || null;
         } catch (err) { return err.message }
     }
     async updatePlaceById(id, params) {
         try {
-            const updatedPlace = axios.patch("/api/places/" + id, params).then(result => result.data)
+            // axios.defaults.headers.common['Access-Control-Allow-Origin'] = '*'
+            const updatedPlace = axios.patch("http://localhost:3000/api/places/" + id, params).then(result => result.data)
             return updatedPlace
-        } catch (err) { return err.message }
+        } catch (err) { console.log('cors matter'); return err.message }
     }
     async createPlace(params) {
         try {
-            const createdPlace = axios.post("/api/places/", params).then(result => result.data)
+            //axios.defaults.headers.common['Access-Control-Allow-Origin'] = '*'
+            const createdPlace = axios.post("http://localhost:3000/api/places/", params).then(result => result.data)
             return createdPlace
         } catch (err) { return err.message }
     }
     async getCommentsForPlace(id) {
         try {
-            const commentsForPlace = await axios.get("/api/comments/" + id)
+            const commentsForPlace = await axios.get("http://localhost:3000/api/comments/" + id)
             return commentsForPlace.data
         } catch (err) { return err.message }
     }
     async createCommentforPlace(id, params) {
         try {
-            const addedComment = axios.post("/api/comments/" + id, params)
+            //axios.defaults.headers.common['Access-Control-Allow-Origin'] = '*'
+            const addedComment = axios.post("http://localhost:3000/api/comments/" + id, params)
             return addedComment
         } catch (err) { return err.message }
     }
     async deleteComment(id) {
         try {
-            const deletedComment = axios.delete("/api/comments/" + id)
+            //axios.defaults.headers.common['Access-Control-Allow-Origin'] = '*'
+            const deletedComment = axios.delete("http://localhost:3000/api/comments/" + id)
             return deletedComment
         } catch (err) { return err.message }
     }
     async getPhotosForPlace(id) {
         try {
-            const photosForPlace = await axios.get("/api/photos/" + id).then(result => result.data)
+            const photosForPlace = await axios.get("http://localhost:3000/api/photos/" + id).then(result => result.data)
             return photosForPlace
         } catch (err) { return err.message }
     }
     async addPhotoForPlace(id, params) {
         try {
-            const addedPhoto = axios.post("/api/photos/" + id, params).then(result => result.data)
+            //axios.defaults.headers.common['Access-Control-Allow-Origin'] = '*'
+            const addedPhoto = axios.post("http://localhost:3000/api/photos/" + id, params).then(result => result.data)
             return addedPhoto
         } catch (err) { return err.message }
     }
     async deletePhoto(id) {
         try {
-            const deletedPhoto = axios.delete('/api/photos/' + id).then(result => result.data)
+            //axios.defaults.headers.common['Access-Control-Allow-Origin'] = '*'
+            const deletedPhoto = axios.delete('http://localhost:3000/api/photos/' + id).then(result => result.data)
             return deletedPhoto
         } catch (err) { return err.message }
     }

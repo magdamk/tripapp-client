@@ -21,11 +21,11 @@
     <p v-else>Brak opinii</p>
     
     <div id="menu"></div>
-    <a href="#menu">
+    
     <button @click ="revealMap()"  class="waves-effect waves-light btn" ><i class="material-icons left">place</i>Pokaż na mapie {{}}</button>
     <button @click ="revealWeather()"  class="waves-effect waves-light btn" ><i class="material-icons left">wb_sunny</i>Pogoda</button> 
     <button @click ="revealPhotos()" class="waves-effect waves-light btn" ><i class="material-icons left">photo_camera</i>Galeria ({{photos.length}})</button>         
-    <button @click ="revealComments()"  class="waves-effect waves-light btn"><i class="material-icons left">rate_review</i>Opinie ({{comments.length}})</button></a>
+    <button @click ="revealComments()"  class="waves-effect waves-light btn"><i class="material-icons left">rate_review</i>Opinie ({{comments.length}})</button>
     
     <div v-show="place.showPhotos">
       <Photos :photos="photos" v-bind:placeId="place._id" @photo-list-changed="photoListChanged"/>
@@ -82,7 +82,8 @@ export default {
     this.getPlaceById(this.placeId);
     this.getCommentsForPlace(this.placeId);
     this.getPhotosForPlace(this.placeId);
-    this.getWeatherForPlace(this.placeId)
+    this.getWeatherForPlace(this.placeId);
+   
   },
   methods: {
     commentListChange(){
@@ -121,24 +122,28 @@ export default {
       this.place.showComments = false
       this.place.showPhotos = false
       this.place.showMap = false;
+       document.getElementById('menu').scrollIntoView();
     },
      revealPhotos() {
       this.place.showPhotos = !this.place.showPhotos
       this.place.showWeather = false;
       this.place.showComments = false
       this.place.showMap = false;
+       document.getElementById('menu').scrollIntoView();
     },
     revealMap() {
       this.place.showMap = !this.place.showMap
       this.place.showWeather = false;
       this.place.showComments = false;
       this.place.showPhotos = false;
+       document.getElementById('menu').scrollIntoView();
     },
     revealComments() {
       this.place.showComments = !this.place.showComments
       this.place.showWeather = false;
       this.place.showMap = false;
       this.place.showPhotos = false;
+       document.getElementById('menu').scrollIntoView();
     },
     goBackToPlaces() {
         this.$router.push("/Places/");
