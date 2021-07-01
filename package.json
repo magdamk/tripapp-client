@@ -1,6 +1,7 @@
 {
     "name": "tripapp-client",
     "version": "0.1.0",
+    "node": "14.15.0",
     "private": true,
     "scripts": {
         "postinstall": "npm run build",
