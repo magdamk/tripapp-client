@@ -55,7 +55,6 @@ export default {
                 password: this.password
             }
             const result = await adminService.postLogin(params);
-            //console.log(result)
             if (result.message==="Nieprawidłowe dane logowania") {
                 this.message= result.message
                 this.user = null

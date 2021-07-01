@@ -12,7 +12,6 @@
    
 </template>
 <script>
-//import {Loader} from "@googlemaps/js-api-loader"
 import { GoogleMap, Marker } from 'vue3-google-map'
 export default {
   name: "Map",

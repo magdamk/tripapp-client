@@ -11,7 +11,6 @@ export class AdminService {
             const user = await axios.post("https://tripapp-mm.herokuapp.com/api/admin/", params)
             return user.data.message;
         } catch (e) {
-            console.log('Mam cię!')
             return { message: "Nieprawidłowe dane logowania" }
         }
     }
