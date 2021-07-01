@@ -23,7 +23,7 @@ export class GeoService {
     async getWeather(id) {
         try {
             const place = await placeService.getPlaceById(id);
-            const url = "http://api.openweathermap.org/data/2.5/onecall?lat=" + place.latitude + "&lon=" + place.longitude + "&appid=ce133af21bc2f8dd391c25474fae2b43&lang=pl";
+            const url = "https://api.openweathermap.org/data/2.5/onecall?lat=" + place.latitude + "&lon=" + place.longitude + "&appid=ce133af21bc2f8dd391c25474fae2b43&lang=pl";
             const weather = await axios(url)
             return weather.data
         } catch (err) { return err.message }
