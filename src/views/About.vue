@@ -10,7 +10,9 @@
     <p> Studia podyplomowe "Tworzenie dynamicznych aplikacji internetowych w języku JavaScript" </p>
     <p>INSTYTUT PODSTAW INFORMATYKI POLSKIEJ AKADEMII NAUK</p>
     <p>Autor: Magdalena Mroziuk</p>
-    <a href = "mailto: magdamk@protonmail.com">Email</a>
+    <a href = "mailto: magdamk@protonmail.com">Email 1</a>
+    <br/>
+    <a href = "mailto: magdamroziuk@wp.pl">Email 2</a>
     <br/>
     <a href = "https://github.com/magdamk/tripapp-client" target = "_blank">Frontend Git Hub repo</a>
     <br/>

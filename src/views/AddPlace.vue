@@ -12,7 +12,7 @@
   <h4 >Podaj parametry miejsca</h4>
   <p>Wskazówka: w polu "miejscowość" podaj najbliższą miejscowość, 
     natomiast w polu adres warto dodać województwo i/lub powiat, zwiększa to dokładność geokodowania. </p>
-    <p>Geocoding pochodzi z serwisu: <a href="http://www.mapquestapi.com/"></a></p>
+    <p>Geocoding pochodzi z serwisu: <a href="http://www.mapquestapi.com/" target="blank">http://www.mapquestapi.com/</a></p>
   
   <form @submit.prevent="addPlaceToTheBase" >
     <div>
